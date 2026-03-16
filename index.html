@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Exchange Rates</title>
+<style>
+body{
+font-family: Arial;
+text-align:center;
+padding:40px;
+}
+.rate{
+font-size:28px;
+margin:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Exchange Rates</h1>
+<p>GBP Base Currency</p>
+
+<div id="rates">
+Loading rates...
+</div>
+
+<script>
+
+fetch("https://api.exchangerate.host/latest?base=GBP&symbols=EUR,TRY,MAD")
+.then(response => response.json())
+.then(data => {
+
+let eur = data.rates.EUR.toFixed(2)
+let tryRate = data.rates.TRY.toFixed(2)
+let mad = data.rates.MAD.toFixed(2)
+
+document.getElementById("rates").innerHTML = `
+<div class="rate">EUR - ${eur}</div>
+<div class="rate">TRY - ${tryRate}</div>
+<div class="rate">MAD - ${mad}</div>
+<p>Updated automatically</p>
+`
+
+})
+
+</script>
+
+</body>
+</html>
